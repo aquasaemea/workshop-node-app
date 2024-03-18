@@ -1,4 +1,4 @@
-##{{PASTE CONTENT FROM https://raw.githubusercontent.com/aquasaemea/emea-workshop-docs/main/github-actions.yml}}
+###{{PASTE CONTENT FROM https://raw.githubusercontent.com/aquasaemea/emea-workshop-docs/main/github-actions.yml}}
 
 name: Build and scan
 
