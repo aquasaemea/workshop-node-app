@@ -1,13 +1,12 @@
 
 name: Build and scan
 
-on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches: 
-      - '**'
+on: pull_request
+
+#on:
+#  push:
+#    branches:
+#      - main
 
 env:
    DOCKER_REPOSITORY: ${{ secrets.DOCKERHUB_USERNAME }} # name of Docker Hub Org ID
