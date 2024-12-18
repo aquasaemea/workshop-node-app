@@ -1,4 +1,4 @@
-FROM node:16-alpine
+FROM node:18-alpine
 
 RUN mkdir /sensitive_data
 COPY iac-secrets.tf /sensitive_data
