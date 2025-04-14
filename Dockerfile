@@ -1,8 +1,12 @@
 FROM chainguard/node:latest
+# FROM node:18-alpine
 
-RUN mkdir /sensitive_data
+# RUN mkdir /sensitive_data
+RUN mkdir -p /home/nonroot/sensitive_data
+
 COPY iac-secrets.tf /sensitive_data
-RUN mkdir /misconfiguration
+# RUN mkdir /misconfiguration
+RUN mkdir -p /home/nonroot//misconfiguration
 
 # MALWARE BLOCK
 RUN echo 'X5O!P%@AP[4\PZX54(P^)7CC)7}$EICAR-STANDARD-ANTIVIRUS-TEST-FILE!$H+H*' > /eicar.com.txt
