@@ -1,4 +1,4 @@
-FROM node:18-alpine
+FROM chainguard/node:latest
 
 RUN mkdir /sensitive_data
 COPY iac-secrets.tf /sensitive_data
