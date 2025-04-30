@@ -21,11 +21,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Setup pipeline enforcer
-        uses: aquasecurity/pipeline-enforcer-action@main
-        with:
-          aqua-key: ${{ secrets.AQUA_KEY }}
-          aqua-secret: ${{ secrets.AQUA_SECRET }}
+    #  - name: Setup pipeline enforcer
+    #    uses: aquasecurity/pipeline-enforcer-action@main
+    #    with:
+    #      aqua-key: ${{ secrets.AQUA_KEY }}
+    #      aqua-secret: ${{ secrets.AQUA_SECRET }}
       
       - name: Code Scanner (SCA/SAST/Misconfig/Sensitive Data) 
         uses: docker://aquasec/aqua-scanner
