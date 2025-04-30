@@ -30,7 +30,7 @@ jobs:
       - name: Code Scanner (SCA/SAST/Misconfig/Sensitive Data) 
         uses: docker://aquasec/aqua-scanner
         with:
-          args: trivy fs --scanners config,vuln,secret --sast --reachability --package-json . 
+          args: trivy fs --format json --output aqua-sscs-results.json --scanners config,vuln,secret --sast --reachability --package-json . 
         env:
           AQUA_KEY: ${{ secrets.AQUA_KEY }}
           AQUA_SECRET: ${{ secrets.AQUA_SECRET }}
