@@ -10,6 +10,7 @@ on:
       - main
 
 env:
+   ##### DOCKER_REPO AND IMAGE_REPO ARE SET IN LINES 26ff now
    #DOCKER_REPOSITORY: ${{ secrets.DOCKERHUB_USERNAME }} # name of Docker Hub Org ID
    #IMAGE_NAME: workshop-node-app
    IMAGE_TAG: ${{ github.run_number }} 
@@ -23,8 +24,8 @@ jobs:
         id: set-env
         run: |
           if [ "${{ github.actor }}" == "togerhar-aqua" ]; then
-            echo "DOCKER_REPOSITORY=testrepo" >> $GITHUB_ENV
-            echo "IMAGE_NAME=testimage" >> $GITHUB_ENV
+            echo "DOCKER_REPOSITORY=${{ secrets.DOCKERHUB_USERNAME }}" >> $GITHUB_ENV
+            echo "IMAGE_NAME=workshop-node-app" >> $GITHUB_ENV
           elif [ "${{ github.actor }}" == "iheanyinjeze" ]; then
             echo "DOCKER_REPOSITORY=${{ secrets.DOCKERHUB_USERNAME }}" >> $GITHUB_ENV
             echo "IMAGE_NAME=workshop-node-app" >> $GITHUB_ENV
