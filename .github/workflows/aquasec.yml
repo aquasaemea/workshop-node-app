@@ -19,8 +19,8 @@ jobs:
     name: Aqua Code Scan 
     runs-on: ubuntu-latest
     outputs:
-      DOCKER_REPOSITORY: ${{ steps.set-env.outputs.env_var1 }}
-      IMAGE_NAME: ${{ steps.set-env.outputs.env_var2 }}
+      DOCKER_REPOSITORY: ${{ steps.set-env.outputs.DOCKER_REPOSITORY }}
+      IMAGE_NAME: ${{ steps.set-env.outputs.IMAGE_NAME }}
     steps:
       - name: Set env variable based on triggering user
         id: set-env
