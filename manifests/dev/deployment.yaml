@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: gh-nodejs-app2
-  namespace: dev
+  namespace: gh-dev
   labels:
     app: gh-nodejs-app2
     env: dev
