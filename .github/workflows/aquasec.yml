@@ -24,8 +24,8 @@ jobs:
         id: set-env
         run: |
           if [ "${{ github.actor }}" == "togerhar-aqua" ]; then
-            echo "DOCKER_REPOSITORY=${{ secrets.DOCKERHUB_USERNAME }}" >> $GITHUB_ENV
-            echo "IMAGE_NAME=workshop-node-app" >> $GITHUB_ENV
+            echo "DOCKER_REPOSITORY=${{ secrets.DOCKERHUB_USERNAME_TOBI }}" >> $GITHUB_ENV
+            echo "IMAGE_NAME=gh-workshop-demo" >> $GITHUB_ENV
           elif [ "${{ github.actor }}" == "iheanyinjeze" ]; then
             echo "DOCKER_REPOSITORY=${{ secrets.DOCKERHUB_USERNAME }}" >> $GITHUB_ENV
             echo "IMAGE_NAME=workshop-node-app" >> $GITHUB_ENV
@@ -61,7 +61,22 @@ jobs:
           name: aqua-sscs-results
           path: aqua-sscs-report.html
 
-      - name: Log in to Docker Hub
+      - name: Log in to Docker Hub depending on user iheanyinjeze
+        if: github.actor == 'iheanyinjeze'
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PAT }}
+
+      - name: Log in to Docker Hub depending on user togerhar-aqua
+        if: github.actor == 'togerhar-aqua'
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME_TOBI }}
+          password: ${{ secrets.DOCKERHUB_PAT_TOBI }}
+
+      - name: Log in to Docker Hub for any other user
+        if: github.actor != 'togerhar-aqua' && github.actor != 'iheanyinjeze'
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
