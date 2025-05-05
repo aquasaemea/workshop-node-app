@@ -52,12 +52,12 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PAT }}
 
-      - name: Build and push Docker image
+      - name: Build Docker image
         uses: docker/build-push-action@v6.16.0
         with:
           context: .
           file: ./Dockerfile
-          push: true
+          push: false
           tags: ${{ env.DOCKER_REPOSITORY}}/${{ env.IMAGE_NAME}}:${{ env.IMAGE_TAG}}
 
       - name: Login to Aqua Registry
@@ -75,7 +75,13 @@ jobs:
         uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: results.sarif
-          
+  
+      - name: Push Docker image
+        uses: docker/build-push-action@v6.16.0
+        with:
+          push: true
+          tags: ${{ env.DOCKER_REPOSITORY}}/${{ env.IMAGE_NAME}}:${{ env.IMAGE_TAG}}
+
       - name: SBOM/Manifest Generation
         run: |
           export BILLY_SERVER=https://billy.codesec.aquasec.com
@@ -92,4 +98,3 @@ jobs:
             --aqua-key "${{ secrets.AQUA_KEY }}" \
             --aqua-secret "${{ secrets.AQUA_SECRET }}" \
             --artifact-path "${{ env.DOCKER_REPOSITORY}}/${{ env.IMAGE_NAME}}:${{ env.IMAGE_TAG}}" 
-  
