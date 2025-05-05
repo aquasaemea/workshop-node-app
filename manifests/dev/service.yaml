@@ -4,7 +4,7 @@ metadata:
   labels:
     name: gh-nodejs-app2
   name: gh-nodejs-app2-svc
-  namespace: dev
+  namespace: gh-dev
 spec:
   type: LoadBalancer
   selector:
