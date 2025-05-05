@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: gh-dev
+  labels:
+    name: gh-dev
+    managed-by: gh-action-workshop-app
