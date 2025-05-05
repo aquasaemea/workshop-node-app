@@ -3,7 +3,8 @@ name: Build and scan
 
 on: 
   pull_request:
-    
+    branches:
+      - main
   push:
     branches:
       - main
@@ -20,12 +21,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-
-    #  - name: Setup pipeline enforcer
-    #    uses: aquasecurity/pipeline-enforcer-action@main
-    #    with:
-    #      aqua-key: ${{ secrets.AQUA_KEY }}
-    #      aqua-secret: ${{ secrets.AQUA_SECRET }}
 
       - name: Download Trivy HTML template
         run: |
@@ -74,7 +69,7 @@ jobs:
           
       - name: Image Scan with Trivy Premium
         run: |
-          docker run -e BUILD_JOB_NAME=${{ env.IMAGE_NAME}} -e BUILD_NUMBER=${{ env.IMAGE_TAG }} --rm -v /var/run/docker.sock:/var/run/docker.sock registry.aquasec.com/scanner:2022.4 scan --host ${{ secrets.AQUA_HOST }} --local ${{ env.DOCKER_REPOSITORY}}/${{ env.IMAGE_NAME}}:${{ env.IMAGE_TAG}} --token ${{ secrets.AQUA_TOKEN }} --layer-vulnerabilities --no-verify --sarif > results.sarif
+          docker run -e BUILD_JOB_NAME=${{ env.IMAGE_NAME}} -e BUILD_NUMBER=${{ env.IMAGE_TAG }} --rm -v /var/run/docker.sock:/var/run/docker.sock registry.aquasec.com/scanner:latest-saas scan --host ${{ secrets.AQUA_HOST }} --local ${{ env.DOCKER_REPOSITORY}}/${{ env.IMAGE_NAME}}:${{ env.IMAGE_TAG}} --token ${{ secrets.AQUA_TOKEN }} --layer-vulnerabilities --no-verify --sarif > results.sarif
 
       - name: Upload SARIF report
         uses: github/codeql-action/upload-sarif@v3
