@@ -59,6 +59,8 @@ jobs:
           file: ./Dockerfile
           push: false
           tags: ${{ env.DOCKER_REPOSITORY}}/${{ env.IMAGE_NAME}}:${{ env.IMAGE_TAG}}
+        env:
+          DOCKER_BUILD_SUMMARY: false
 
       - name: Login to Aqua Registry
         uses: docker/login-action@v3
@@ -81,7 +83,9 @@ jobs:
         with:
           push: true
           tags: ${{ env.DOCKER_REPOSITORY}}/${{ env.IMAGE_NAME}}:${{ env.IMAGE_TAG}}
-
+        env:
+          DOCKER_BUILD_SUMMARY: false
+          
       - name: SBOM/Manifest Generation
         run: |
           export BILLY_SERVER=https://billy.codesec.aquasec.com
