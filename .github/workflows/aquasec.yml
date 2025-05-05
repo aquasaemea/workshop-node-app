@@ -10,15 +10,32 @@ on:
       - main
 
 env:
-   DOCKER_REPOSITORY: ${{ secrets.DOCKERHUB_USERNAME }} # name of Docker Hub Org ID
-   IMAGE_NAME: workshop-node-app
+   #DOCKER_REPOSITORY: ${{ secrets.DOCKERHUB_USERNAME }} # name of Docker Hub Org ID
+   #IMAGE_NAME: workshop-node-app
    IMAGE_TAG: ${{ github.run_number }} 
 
 jobs:
   aqua:
     name: Aqua Code Scan 
     runs-on: ubuntu-latest
+    outputs:
+      DOCKER_REPOSITORY: ${{ steps.set-env.outputs.env_var1 }}
+      IMAGE_NAME: ${{ steps.set-env.outputs.env_var2 }}
     steps:
+      - name: Set env variable based on triggering user
+        id: set-env
+        run: |
+          if [ "${{ github.actor }}" == "togerhar-aqua" ]; then
+            echo "DOCKER_REPOSITORY=testrepo" >> $GITHUB_OUTPUT
+            echo "IMAGE_NAME=testimage" >> $GITHUB_OUTPUT
+          elif [ "${{ github.actor }}" == "iheanyinjeze" ]; then
+            echo "DOCKER_REPOSITORY=${{ secrets.DOCKERHUB_USERNAME }}" >> $GITHUB_OUTPUT
+            echo "IMAGE_NAME=workshop-node-app" >> $GITHUB_OUTPUT
+          else
+            echo "DOCKER_REPOSITORY=${{ secrets.DOCKERHUB_USERNAME }}" >> $GITHUB_OUTPUT
+            echo "IMAGE_NAME=workshop-node-app" >> $GITHUB_OUTPUT
+          fi
+          
       - name: Checkout code
         uses: actions/checkout@v2
 
