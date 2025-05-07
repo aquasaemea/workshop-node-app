@@ -9,7 +9,7 @@ on:
       - main
 
 env:
-   #### DOCKER_REPO AND IMAGE_REPO ARE SET IN LINES 26ff now
+   ### DOCKER_REPO AND IMAGE_REPO ARE SET IN LINES 26ff now
    #DOCKER_REPOSITORY: ${{ secrets.DOCKERHUB_USERNAME }} # name of Docker Hub Org ID
    #IMAGE_NAME: workshop-node-app
    IMAGE_TAG: ${{ github.run_number }} 
