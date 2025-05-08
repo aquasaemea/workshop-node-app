@@ -42,7 +42,7 @@ jobs:
           curl -sSL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/html.tpl -o contrib/html.tpl
       
       - name: Code Scanner (SCA/SAST/Misconfig/Sensitive Data) 
-        uses: docker://aquasec/aqua-scanner
+        uses: docker://aquasec/aqua-scanner:latest
         with:
           args: trivy fs --format template --template "@contrib/html.tpl" -o aqua-sscs-report.html --scanners config,vuln,secret --sast --reachability --package-json . 
         env:
